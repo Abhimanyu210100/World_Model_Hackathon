@@ -1,0 +1,252 @@
+{
+  "title": "The Woman in the Walls",
+  "intro": "Your car died a mile back in the storm. The only light on the road came from the old Hale farmhouse. People in town say Margaret Hale never stopped looking for her daughter. They say she's still looking.",
+  "style": "First-person POV handheld camera at eye level; the only body ever visible is your own hands. An abandoned 1970s farmhouse at night during a violent thunderstorm. Grainy 35mm film, sickly mustard and faded olive palette, peeling damask wallpaper, warped wet floorboards, a weak flashlight beam and deep black shadows. Every room is completely empty and still. Slow, deliberate camera. No on-screen text.",
+  "start": "arrival",
+  "nodes": {
+    "arrival": {
+      "title": "The Hale House",
+      "frame": "foyer",
+      "location": "foyer",
+      "shots": [
+        {
+          "narration": "You push the door shut against the storm. Behind you, the deadbolt slides closed on its own.",
+          "prompt": "Rain-soaked hands push the heavy front door shut against the howling storm. As the door closes, the brass deadbolt slowly slides into place by itself with a heavy clunk. Your hands grab the knob and pull; it will not open. The camera turns to take in the empty entry hall: a dim amber table lamp, peeling wallpaper, an arched doorway into darkness. Audio: wind and rain roaring then muffled as the door shuts, the deadbolt's slow metallic slide and clunk, a rattling doorknob, your breathing."
+        },
+        {
+          "narration": "A photograph on the hall table: a mother and her little girl. Beneath it, a clipping. Lily Hale, age six, missing since the storm of 1974. Something about the girl's face is familiar.",
+          "prompt": "Close on the small hall table under the amber lamp. Your hand picks up a faded framed photograph and tilts it toward the light; the photograph has faded to pale, water-stained blurs. Beneath it lies a yellowed newspaper clipping, water-stained and curling. The lamp flickers. From somewhere deep inside the house, faint off-key humming begins, then the arched doorway behind the table creaks wider by itself. Audio: rain on the windows, the glass frame scraping wood, a soft child's humming far away, a slow door creak, a distant thunder roll."
+        }
+      ],
+      "choices": [
+        { "label": "Follow the humming", "to": "hallway" },
+        { "label": "Try the old telephone", "to": "telephone" }
+      ]
+    },
+    "telephone": {
+      "title": "The Telephone",
+      "location": "foyer",
+      "shots": [
+        {
+          "narration": "The line should be dead. It isn't. Someone is breathing on the other end.",
+          "prompt": "Your hand lifts the receiver of an old black rotary telephone on the wall and holds it close; your other hand drags the dial around with a finger, click by click. Static hisses. The camera stays close on the phone and your trembling hand as the static slowly falls away into silence, then into slow, small breaths. The lamp beside you dims. Audio: the rotary dial clicking back, crackling static fading out, then a child's soft, close breathing through the earpiece, rain on glass."
+        },
+        {
+          "narration": "A little girl whispers. 'Mama's looking for me. She keeps everyone who comes in. I'm under the house. Please find me before she finds you.'",
+          "prompt": "The camera stays tight on the receiver against the dark wallpaper as your hand grips it harder. The coiled phone cord slowly begins to tug, as if something is pulling it from inside the wall where it enters the plaster. Plaster dust trickles from the hole. Your hand lets go and the receiver swings on its cord, knocking against the wall. Audio: a small child's urgent whisper through the phone, the cord creaking taut, plaster crumbling, the receiver banging against the wall, then a dial tone."
+        }
+      ],
+      "choices": [
+        { "label": "Go down to the cellar", "to": "cellar" },
+        { "label": "Find the girl's room", "to": "hallway" }
+      ]
+    },
+    "hallway": {
+      "title": "The Portraits",
+      "frame": "hallway",
+      "location": "hallway",
+      "shots": [
+        {
+          "narration": "Family portraits line the hallway. In every one of them, the mother's face has been scratched out.",
+          "prompt": "Your flashlight moves slowly down a long, narrow hallway with a threadbare carpet runner. Framed family photographs hang crooked along the wall; the beam passes over them one by one, and in every frame part of the photograph has been gouged away with deep, frantic scratches, leaving only torn white paper. Audio: floorboards creaking under your weight, rain on a distant window, the faint buzz of the flashlight, the humming somewhere ahead getting closer."
+        },
+        {
+          "narration": "The humming stops. Small wet footprints appear on the carpet, a child's footprints, leading to a door at the end of the hall.",
+          "prompt": "The humming cuts off abruptly. The flashlight beam drops to the carpet runner: one by one, small wet bare footprints darken the fabric, appearing on their own and leading away down the hallway toward a door at the far end, which slowly swings open onto blackness. The camera follows them, steady and slow. Audio: total silence after the humming, then soft wet pats on the carpet, a slow hinge creak, water dripping."
+        }
+      ],
+      "choices": [
+        { "label": "Follow the small footprints", "to": "nursery" },
+        { "label": "Break into the locked study", "to": "study" }
+      ]
+    },
+    "study": {
+      "title": "Margaret's Study",
+      "location": "hallway",
+      "shots": [
+        {
+          "narration": "Margaret's study. A diary lies open beside the typewriter. 'Day nine. I hear her in the walls at night. If I seal the doors, she can never leave me again.'",
+          "prompt": "Your shoulder forces a swollen wooden door open and the flashlight sweeps across a cramped study: a heavy desk, a black typewriter with a sheet of paper still in it, stacks of water-stained papers, and an open leather diary. Your hand turns the brittle diary pages under the beam. Audio: the door cracking open, paper rustling, rain lashing a small window, your breathing."
+        },
+        {
+          "narration": "The typewriter begins to type by itself. One line, over and over. Nobody leaves until Lily comes home. In the open drawer, a brass key.",
+          "prompt": "The camera turns to the typewriter as its keys begin striking on their own, the carriage jumping along, line after line hammering into the paper. The desk drawer slides open by itself; inside, under the flashlight beam, lies a small tarnished brass key on a faded ribbon. Audio: frantic typewriter clacking and the carriage bell ringing, the drawer scraping open, the key's soft metallic rattle, thunder."
+        }
+      ],
+      "choices": [
+        { "label": "Take the key and run for the door", "to": "front_door" },
+        { "label": "Read the diary's last page", "to": "twist_lily" }
+      ]
+    },
+    "twist_lily": {
+      "title": "The Last Page",
+      "location": "hallway",
+      "shots": [
+        {
+          "narration": "The last page is dated tonight. In your handwriting. 'She came home. She just doesn't remember.'",
+          "prompt": "Your hand flips to the final page of the diary and holds the flashlight close: fresh dark ink, still wet, smearing under your thumb. The typewriter falls silent. Slowly your free hand comes into view and turns over: a small, pale, child-sized hand, wet and wrinkled from water. Audio: the typewriter stopping mid-word, a page turning, your breath catching, rain slowing to a drip."
+        },
+        {
+          "narration": "Down the hall, a door opens. A woman's voice, soft and broken. 'Lily. You came home.' She was never keeping strangers. She was waiting for you.",
+          "prompt": "The camera slowly lowers the diary and turns toward the study door, which drifts open onto the dark hallway. The hallway lamps flicker on one by one, warm and golden, the storm outside quieting. The hall is empty and still. Audio: a door creaking open, the rain stopping, a music box beginning a gentle lullaby, and a soft, trembling voice from the empty hallway: 'Lily. You came home.'"
+        }
+      ],
+      "ending": "twist"
+    },
+    "nursery": {
+      "title": "Lily's Room",
+      "frame": "nursery_key",
+      "location": "nursery",
+      "shots": [
+        {
+          "narration": "Lily's room has been kept exactly as she left it. Fifty years of dust. The rocking chair is still warm.",
+          "prompt": "You step slowly into a decaying 1970s child's bedroom lit by the stormy window. A white wooden crib with a torn blanket stands in the middle of the room; the wicker rocking chair in the corner is rocking gently by itself. Crayon drawings are pinned to the wall. Audio: the rocking chair creaking rhythmically, rain against the glass, a music box playing a few warped notes and stopping, your slow footsteps."
+        },
+        {
+          "narration": "The drawings show a house, a mother, and a girl underground. Under the crib, something glints. A brass key.",
+          "prompt": "The flashlight moves across the crayon drawings pinned to the peeling wallpaper: a house, a tall black crayon scribble, and a small stick child drawn beneath the ground in black crayon. The beam drops to the floor and finds a small brass key glinting in the dust beneath the crib. The rocking chair stops dead. Audio: paper fluttering, the chair's last creak, then silence and a single drip of water, a faint child's giggle from inside the wall."
+        }
+      ],
+      "choices": [
+        { "label": "Reach under the crib for the key", "to": "nursery_reach" },
+        { "label": "Open the wardrobe", "to": "death_wardrobe" }
+      ]
+    },
+    "nursery_reach": {
+      "title": "Under the Crib",
+      "location": "nursery",
+      "shots": [
+        {
+          "narration": "Your fingers close on the key. Something cold closes on your wrist.",
+          "prompt": "You kneel and reach your arm under the crib into the dusty darkness, the flashlight lying on the floor beside you. Your fingers close around the small brass key. Your arm jerks violently as if grabbed and you yank it back, the key clenched in your fist, red finger-shaped marks rising on your wrist. Audio: dust scraping, the key's metallic clink, a sudden wet slap, your scream, a deep rattling growl from under the crib."
+        },
+        {
+          "narration": "Every door in the house begins to slam, one after another, closer and closer.",
+          "prompt": "You scramble backward across the floor and up, the flashlight swinging wildly over the crib, the wall of drawings and the open doorway. The bedroom door slams shut and bangs open again on its own, over and over; the crayon drawings tear from the wall and swirl. Audio: doors slamming throughout the house one after another getting closer, paper whipping, your panicked breathing, thunder."
+        }
+      ],
+      "scare": { "shot": 0, "at": 4.5 },
+      "choices": [
+        { "label": "Run for the front door", "to": "front_door" },
+        { "label": "Go down and find Lily", "to": "cellar" }
+      ]
+    },
+    "death_wardrobe": {
+      "title": "The Wardrobe",
+      "location": "nursery",
+      "shots": [
+        {
+          "narration": "Small dresses on tiny hangers. All of them wet.",
+          "prompt": "Your hand pulls open the tall wooden wardrobe doors; the flashlight reveals a row of small faded children's dresses on tiny hangers, every one of them soaked and dripping onto the wardrobe floor. Behind them, deeper than a wardrobe should be, there is only blackness. Audio: hinges groaning, water dripping steadily, the hangers clinking and swaying, a slow breath from the dark."
+        },
+        {
+          "narration": "The dresses part, as if something is stepping through them.",
+          "prompt": "The camera leans in closer to the dark gap behind the dresses. The wet dresses slowly part in the middle by themselves, swaying apart, revealing deeper darkness. The flashlight flickers, dims, and dies. Audio: fabric sliding, the drip quickening, the flashlight clicking uselessly, a long wet inhale right in front of you."
+        }
+      ],
+      "ending": "death",
+      "scare": "end"
+    },
+    "cellar": {
+      "title": "Under the House",
+      "frame": "basement",
+      "location": "basement",
+      "shots": [
+        {
+          "narration": "The cellar. The furnace is still burning, fifty years after anyone could have lit it.",
+          "prompt": "Your flashlight descends creaking wooden stairs into a stone-walled cellar. An old iron furnace glows orange through its grate, ticking and roaring. Pipes drip. The camera moves along the rough stone wall at the bottom of the stairs. Audio: the stairs creaking, the furnace roaring and ticking, water dripping into puddles, a low moan from somewhere in the walls."
+        },
+        {
+          "narration": "One section of wall is newer than the rest. Red brick, laid by an unsteady hand. At its base, one small shoe. Behind it, the humming.",
+          "prompt": "The flashlight beam stops on a section of the stone wall that has been bricked up with newer red bricks, the mortar smeared and uneven. At the base of it lies a single small child's shoe, its buckle rusted. The camera moves slowly closer to the bricks. Audio: the furnace fading, faint child humming coming from behind the bricks, your heartbeat, dripping water."
+        }
+      ],
+      "choices": [
+        { "label": "Tear down the bricks", "to": "lily_found" },
+        { "label": "Run back up the stairs", "to": "death_stairs" }
+      ]
+    },
+    "lily_found": {
+      "title": "Lily",
+      "location": "basement",
+      "shots": [
+        {
+          "narration": "Brick by brick. Behind the wall, a hollow. A little girl's coat, a doll, and fifty years of waiting.",
+          "prompt": "Your hands pull the loose red bricks out one by one, dropping them to the floor, the flashlight propped on a step. Behind them is a small dark hollow; the beam reveals a faded child's yellow raincoat folded neatly, a porcelain doll, and a tiny pair of shoes. Audio: bricks scraping and thudding, dust falling, the humming stopping, a long sigh through the whole house."
+        },
+        {
+          "narration": "Upstairs, the deadbolt slides open. The storm goes quiet. Something in the walls is finally weeping. You found her. You can go.",
+          "prompt": "The camera climbs the cellar stairs and moves back through the dark house into the entry hall; the front door stands wide open on its own, and outside the storm has passed: a pale dawn glow over wet fields. The camera walks out through the doorway onto the porch. Audio: the deadbolt sliding open far away, the rain stopping, soft weeping from inside the walls, birds beginning to sing."
+        }
+      ],
+      "ending": "escape"
+    },
+    "death_stairs": {
+      "title": "The Stairs",
+      "location": "basement",
+      "shots": [
+        {
+          "narration": "You run. The stairs are longer than they were.",
+          "prompt": "You turn and run up the wooden cellar stairs, the flashlight bouncing over the steps. The doorway at the top glows faintly but does not get any closer; the stairs keep going, step after step. Audio: pounding footsteps on wood, your panicked gasping, the furnace roaring louder below, the steps creaking under you."
+        },
+        {
+          "narration": "The door at the top swings shut. In the dark, wet footsteps climb the stairs behind you.",
+          "prompt": "The door at the top of the stairs slams shut and the light is gone. The flashlight flickers wildly across the steps and the stone wall, then the beam swings back down the stairs behind you into blackness. Audio: the door slamming, the flashlight crackling, slow wet footsteps climbing the stairs behind you one by one, a raspy breath getting closer."
+        }
+      ],
+      "ending": "death",
+      "scare": "end"
+    },
+    "front_door": {
+      "title": "The Front Door",
+      "frame": "foyer",
+      "location": "foyer",
+      "shots": [
+        {
+          "narration": "The key is in your hand. The door is in front of you.",
+          "prompt": "You stumble back into the entry hall and jam the small brass key into the front door's deadbolt with shaking hands; it sticks, and you jiggle it hard. The table lamp flickers. Audio: the key scraping and grinding in the lock, your ragged breathing, rain hammering the door, floorboards creaking somewhere behind you."
+        },
+        {
+          "narration": "Behind you, something is coming down the hall. Slowly. You can hear it breathing. Never turn your back on an open hallway.",
+          "prompt": "The camera stays fixed on your hands and the lock as the key slowly begins to turn. In the dark reflection of the door's small window, the black archway behind you is visible; the amber lamp dims. Audio: the lock mechanism straining, slow wet footsteps approaching from behind, a long raspy breath getting nearer and nearer, thunder."
+        }
+      ],
+      "whisper": "warning",
+      "choices": [
+        { "label": "Turn the key. Don't look back.", "to": "escape_run" },
+        { "label": "Turn around", "to": "death_turn" }
+      ]
+    },
+    "escape_run": {
+      "title": "Outside",
+      "location": "foyer",
+      "shots": [
+        {
+          "narration": "The deadbolt gives. You throw yourself into the storm.",
+          "prompt": "The key turns with a heavy clunk, the deadbolt slides back, and you shove the heavy door open into the roaring storm, stumbling down the porch steps into rain and mud. Audio: the deadbolt clunking, the door crashing open, wind and rain roaring, boots splashing in mud."
+        },
+        {
+          "narration": "You don't look back. Behind you, the door closes softly. The humming starts again. She is still looking. Just not for you.",
+          "prompt": "The camera runs across a muddy field toward distant road headlights through the downpour, never turning around. Lightning lights the empty field. Audio: splashing footsteps, heavy breathing, the storm, and far behind, a door closing softly and a child's humming starting again."
+        }
+      ],
+      "ending": "escape"
+    },
+    "death_turn": {
+      "title": "Behind You",
+      "location": "foyer",
+      "shots": [
+        {
+          "narration": "You turn around.",
+          "prompt": "You slowly turn away from the door toward the dark archway of the hallway, the flashlight beam rising into it. The hallway is empty. The table lamp buzzes and dims. Audio: the lock releasing behind you, your held breath, the lamp buzzing, rain."
+        },
+        {
+          "narration": "The lamp goes out. Something breathes against your face.",
+          "prompt": "The table lamp bulb pops and the room goes black except for the shaking flashlight beam on the empty archway. The flashlight flickers off and on and off. Audio: the bulb popping, a thunder crack, the flashlight clicking, a single long wet breath right in front of you."
+        }
+      ],
+      "ending": "death",
+      "scare": "end"
+    }
+  }
+}

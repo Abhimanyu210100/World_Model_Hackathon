@@ -1,0 +1,182 @@
+:root {
+  --ink: #d8cfc0;
+  --blood: #b3131b;
+  --dim: #7a7064;
+  --bg: #050403;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Special Elite", "Courier New", monospace;
+  overflow: hidden;
+}
+
+#stage { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+#film, #poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+#poster { opacity: 0; transition: opacity 0.8s; pointer-events: none; }
+#poster.show { opacity: 1; }
+
+#grain {
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.4s steps(4) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-5%, 3%); }
+  50% { transform: translate(4%, -4%); }
+  75% { transform: translate(-3%, -2%); }
+}
+#vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+#scene-title {
+  position: absolute;
+  top: 22px;
+  left: 26px;
+  font-size: 15px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-shadow: 0 0 6px #000;
+}
+
+#subtitle {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(820px, calc(100% - 32px));
+  text-align: center;
+  font-size: 22px;
+  line-height: 1.45;
+  text-shadow: 0 0 10px #000, 0 0 3px #000;
+  opacity: 0;
+  transition: opacity 0.8s;
+}
+#subtitle.show { opacity: 1; }
+
+#waiting, #choices {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 16px;
+  text-align: center;
+}
+#waiting { background: rgba(0, 0, 0, 0.35); }
+#waiting p { font-size: 18px; color: var(--dim); letter-spacing: 0.1em; }
+.pulse {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--blood);
+  box-shadow: 0 0 24px var(--blood);
+  animation: pulse 1.1s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(0.7); opacity: 0.5; }
+  15% { transform: scale(1.3); opacity: 1; }
+  30% { transform: scale(0.9); opacity: 0.7; }
+  45% { transform: scale(1.15); opacity: 1; }
+}
+
+#choices { background: linear-gradient(to top, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.35) 60%, rgba(0, 0, 0, 0.15)); justify-content: flex-end; padding-bottom: 56px; }
+#choices .prompt { margin: 0; font-size: 15px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--dim); }
+#choices .options { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+#choices button { min-width: min(320px, calc(100vw - 32px)); font-size: 20px; padding: 16px 24px; text-align: left; }
+#choices kbd { font-family: inherit; color: var(--blood); margin-right: 8px; }
+.countdown { width: min(660px, calc(100% - 32px)); height: 3px; background: rgba(255, 255, 255, 0.08); }
+#countdown-bar { height: 100%; width: 100%; background: var(--blood); box-shadow: 0 0 8px var(--blood); transform-origin: left; }
+
+button {
+  font: inherit;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--ink);
+  border: 1px solid #3a3029;
+  padding: 10px 22px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+button:hover:not(:disabled), button:focus-visible { border-color: var(--blood); color: #fff; background: rgba(179, 19, 27, 0.25); outline: none; }
+button:disabled { opacity: 0.4; cursor: wait; }
+
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 16px;
+  text-align: center;
+  overflow-y: auto;
+  background: radial-gradient(ellipse at center, rgba(25, 6, 6, 0.8), rgba(0, 0, 0, 0.97));
+}
+[hidden] { display: none !important; }
+.screen h1 { font-size: clamp(36px, 7vw, 72px); font-weight: normal; margin: 0; color: var(--blood); text-shadow: 0 0 24px rgba(179, 19, 27, 0.6); }
+.screen p { max-width: 640px; font-size: 18px; line-height: 1.5; margin: 0; }
+.small { font-size: 13px !important; color: var(--dim); }
+
+#path { max-width: 680px; text-align: left; line-height: 1.6; margin: 0; padding-left: 22px; }
+#path li { margin-bottom: 6px; }
+#path .chosen { color: #fff; }
+#path .not { color: var(--dim); text-decoration: line-through; }
+.row { display: flex; gap: 12px; }
+
+.kicker { font-size: 13px !important; letter-spacing: 0.4em; text-transform: uppercase; color: var(--dim); }
+#path .scare-mark { color: var(--blood); }
+
+/* Jump scare: a face that fills the screen, jitters violently and stutters to black. */
+#scare-wrap { position: absolute; inset: 0; z-index: 50; pointer-events: none; background: #000; opacity: 0; }
+#scare-wrap.go { opacity: 1; animation: violent 0.07s steps(2) infinite; }
+#scare { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 42%; }
+#scare-wrap.go #scare { animation: face 2.1s linear forwards; }
+@keyframes violent {
+  0% { transform: translate(-14px, 9px) rotate(-0.6deg); }
+  50% { transform: translate(15px, -10px) rotate(0.7deg); }
+  100% { transform: translate(-9px, -12px) rotate(-0.4deg); }
+}
+@keyframes face {
+  0% { transform: scale(1.12); filter: contrast(1.5) brightness(1.5) saturate(0.7); }
+  6% { transform: scale(1.22); filter: contrast(1.6) brightness(1.2) saturate(0.7); }
+  9% { filter: brightness(0); }
+  12% { transform: scale(1.3); filter: contrast(1.7) brightness(1.4) saturate(0.6); }
+  30% { transform: scale(1.38); filter: contrast(1.6) brightness(1.1) saturate(0.6); }
+  33% { filter: brightness(0); }
+  35% { transform: scale(1.45); filter: contrast(1.8) brightness(1.5) saturate(0.5) hue-rotate(-10deg); }
+  70% { transform: scale(1.55); filter: contrast(1.7) brightness(1.15) saturate(0.6); }
+  74% { filter: brightness(0); }
+  77% { transform: scale(1.75); filter: contrast(2) brightness(1.6) saturate(0.4); }
+  94% { transform: scale(1.95); filter: contrast(2) brightness(1.3) saturate(0.4); }
+  100% { transform: scale(2.05); filter: brightness(0); }
+}
+#redflash { position: absolute; inset: 0; z-index: 51; background: #8a0f0f; mix-blend-mode: multiply; opacity: 0; pointer-events: none; }
+#redflash.go { animation: red 1.2s ease-out; }
+@keyframes red { 0% { opacity: 0.9; } 100% { opacity: 0; } }

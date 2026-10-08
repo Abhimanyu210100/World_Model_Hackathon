@@ -1,0 +1,20 @@
+{
+  "name": "branching-horror",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "voice": "node scripts/voice.mjs"
+  },
+  "dependencies": {
+    "@google/genai": "^2.28.0",
+    "@reactor-models/fast-h3": "^1.8.0",
+    "@reactor-team/js-sdk": "^3.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  }
+}

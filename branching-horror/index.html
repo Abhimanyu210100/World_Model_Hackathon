@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Woman in the Walls</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <video id="film" autoplay playsinline></video>
+      <img id="poster" alt="" />
+      <div id="grain"></div>
+      <div id="vignette"></div>
+
+      <div id="subtitle"></div>
+      <div id="scene-title"></div>
+
+      <div id="waiting" hidden>
+        <div class="pulse"></div>
+        <p id="waiting-text">Something is coming…</p>
+      </div>
+
+      <div id="choices" hidden>
+        <p class="prompt">What do you do?</p>
+        <div class="options">
+          <button id="choice-0"><kbd>1</kbd> <span></span></button>
+          <button id="choice-1"><kbd>2</kbd> <span></span></button>
+        </div>
+        <div class="countdown"><div id="countdown-bar"></div></div>
+        <p class="small">Hesitate, and it chooses for you.</p>
+      </div>
+
+      <!-- Jump scare: above everything else. -->
+      <div id="scare-wrap"><img id="scare" alt="" /></div>
+      <div id="redflash"></div>
+
+      <div id="title" class="screen">
+        <p class="kicker">The Rotting Threshold</p>
+        <h1 id="title-text">The Woman in the Walls</h1>
+        <p id="intro"></p>
+        <p class="small">An interactive horror film, rendered live by FastH3. At each turn you get two choices and 12 seconds. Four paths end in death.</p>
+        <button id="begin">Enter the house</button>
+        <p id="status" class="small">Headphones recommended. Contains disturbing imagery and sudden loud sounds.</p>
+      </div>
+
+      <div id="card" class="screen" hidden>
+        <h1 id="card-title"></h1>
+        <p id="card-text"></p>
+        <button id="card-go" hidden>Begin</button>
+      </div>
+
+      <div id="end" class="screen" hidden>
+        <h1 id="end-title"></h1>
+        <p id="end-subtitle"></p>
+        <ol id="path"></ol>
+        <p id="end-path-note" class="small"></p>
+        <div class="row">
+          <button id="again">Try another path</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
