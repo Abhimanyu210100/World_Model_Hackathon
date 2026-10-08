@@ -1,0 +1,117 @@
+{
+  "title": "The Rotting Threshold",
+  "intro": "The storm hammers against the siding of this decaying 1970s farmhouse, shaking the rotting timbers. The heavy front door behind you is bolted tight, its ancient deadbolt refusing to budge. Somewhere in the suffocating dark of these rooms lies the tarnished brass key that will let you out before whatever lives in the walls finds you.",
+  "style": "1970s vintage color photograph, grainy 35mm film stock, sickly mustard and faded olive palette, heavy atmospheric gloom, rain-streaked windows, dim practical lighting with deep falloff, authentic water damage and decay, hyperrealistic cinematic dread, wide angle lens, 8k resolution.",
+  "rooms": [
+    {
+      "id": "foyer",
+      "name": "The Drowned Vestibule",
+      "image_prompt": "First-person eye level wide shot of a 1970s farmhouse entryway during a violent night storm, faded damask wallpaper peeling in long curls, warped waterlogged hardwood floor reflecting a single dying table lamp with an amber shade, a heavy chained front door to the side, open arched doorway leading toward an pitch-black hallway ahead, no people, no text.",
+      "lingbot_prompt": "Rain lashes against the narrow sidelight window while dust motes float through the faint amber glow of a table lamp. The shadow across the floor stretches subtly as rain droplets trace erratic paths down the glass.",
+      "key_spot": "inside the dusty brass umbrella stand beside the locked front door",
+      "entry_line": "The deadbolt behind you rattles gently in the wind, but it does not budge.",
+      "search_fail_lines": [
+        "You sift through discarded coats on the rack, finding only damp fabric and silverfish.",
+        "The mail tray on the credenza holds only water-damaged envelopes eaten through by mold.",
+        "You check beneath the sodden welcome mat, touching cold mud and slick floorboards."
+      ],
+      "scare_edit": "A tall, impossibly thin figure with hollow darkened eye sockets stands motionless in the hallway archway just three feet away, staring directly into the lens.",
+      "scare_lingbot_prompt": "A tall pale silhouette looms motionless within the hallway archway while the amber table lamp flutters and buzzes violently.",
+      "exits": [
+        "hallway"
+      ],
+      "keyCandidate": false
+    },
+    {
+      "id": "hallway",
+      "name": "The Blind Corridor",
+      "image_prompt": "First-person eye level wide shot down a long narrow 1970s residential hallway, threadbare brown runner rug on creaking floorboards, yellowed wood-panel walls with dark water stains, multiple open interior doorways showing murky rooms beyond, a single low-watt ceiling globe flickering in the distance, no people, no text.",
+      "lingbot_prompt": "Faint drafts send scraps of peeled wallpaper swaying from the ceiling. A distant ceiling globe pulses with a low hum, casting oscillating shadows across the narrow corridor.",
+      "key_spot": "resting on the narrow walnut telephone shelf beside an unplugged rotary phone",
+      "entry_line": "Every board underfoot shrieks with your weight, carrying the sound deep into the house.",
+      "search_fail_lines": [
+        "You peer into the empty linen cupboard, finding only mildewed quilt fragments.",
+        "The framed silhouettes on the wall yield nothing behind their warped glass frames.",
+        "You search under the corner bench, disturbing only thick skeins of cobwebs."
+      ],
+      "scare_edit": "A gaunt, pale face emerges sideways from the doorframe closest to the camera, jaw slack and unblinking milky eyes fixed on the viewer.",
+      "scare_lingbot_prompt": "A pale head tilts out from an open doorway into the frame as the corridor ceiling bulb stutters and cuts to near blackness.",
+      "exits": [
+        "foyer",
+        "nursery",
+        "kitchen"
+      ],
+      "keyCandidate": false
+    },
+    {
+      "id": "nursery",
+      "name": "The Silent Crib",
+      "image_prompt": "First-person eye level wide shot of a decaying 1970s children nursery at night, cracked olive-green walls, a white slatted crib with peeling paint in the center, an abandoned wicker rocking chair, a dark open doorway leading back to the hall, dim ambient streetlamp glare filtering through torn lace curtains, no people, no text.",
+      "lingbot_prompt": "The wicker rocking chair creaks softly as if nudged by a passing draft. Rain tapers against the window glass while airborne dust glints in the pale window glow.",
+      "key_spot": "tucked under the moth-eaten mattress corner of the slatted crib",
+      "entry_line": "The air here smells of sour formula and decades of stagnant rainwater.",
+      "search_fail_lines": [
+        "You rummage through the warped wicker toy chest, unearthing only headless plastic dolls.",
+        "You inspect the sill beneath the torn lace curtains, finding dead moths and grit.",
+        "You check the drawers of the small changing station, but they stick fast in the damp."
+      ],
+      "scare_edit": "A pale woman in a soiled vintage nightdress stands leaning directly over the crib rail, her features blurred and distorted inches from the viewer.",
+      "scare_lingbot_prompt": "A disheveled pale figure stands motionless beside the crib while the lace curtains billow violently in an unseen chill.",
+      "exits": [
+        "hallway"
+      ],
+      "keyCandidate": true
+    },
+    {
+      "id": "kitchen",
+      "name": "The Grease Kitchen",
+      "image_prompt": "First-person eye level wide shot of an abandoned 1970s farmhouse kitchen, stained avocado-green linoleum floor, rusted laminate countertops, a cast-iron skillet on an unlit stove, rain streaming down a grease-spotted window over the sink, an open pantry door showing a pitch-black cellar stairwell, dim fluorescent fixture hanging crookedly, no people, no text.",
+      "lingbot_prompt": "A solitary droplet plinks steadily into the rusted sink basin. The crooked fluorescent tube emits a high-pitched drone, trembling slightly in the cross-draft from the cellar door.",
+      "key_spot": "sitting inside a chipped yellow ceramic mug on the draining rack beside the sink",
+      "entry_line": "The grease on the cabinets is cold and slick, holding the scent of long-spoiled fat.",
+      "search_fail_lines": [
+        "You slide open the rusted silverware drawer, finding only blackened butter knives.",
+        "You search the grease-filmed breadbox, finding dried crumbs and mouse droppings.",
+        "You check inside the dormant oven, but the cold interior is empty save for thick ash."
+      ],
+      "scare_edit": "A wet, hairless humanoid figure crouches on top of the grease-covered kitchen counter, its long fingers gripping the laminate edge right in front of the lens.",
+      "scare_lingbot_prompt": "A hunched pale shape perches atop the kitchen counter while the fluorescent tube rapidly strobes and buzzes against the dark.",
+      "exits": [
+        "hallway",
+        "basement"
+      ],
+      "keyCandidate": true
+    },
+    {
+      "id": "basement",
+      "name": "The Furnace Cellar",
+      "image_prompt": "First-person eye level wide shot of an unfinished farmhouse basement, wet rough stone foundation walls weeping moisture, dirt floor with muddy puddles, an imposing rusted oil furnace in the shadows, steep wooden stairs leading up through an open doorway framed by dim light above, a solitary bare bulb on a frayed cord swaying gently, no people, no text.",
+      "lingbot_prompt": "Moisture trickles down the rough fieldstone walls into stagnant puddles below. The hanging bare bulb sways in an imperceptible draft, shifting heavy cavernous shadows across the earth floor.",
+      "key_spot": "balanced on the rusted draft damper handle of the cold oil furnace",
+      "entry_line": "The chill hits your throat like well water, heavy with the smell of wet coal and wet lime.",
+      "search_fail_lines": [
+        "You inspect the rotting fruit crates against the foundation, finding only broken jars.",
+        "You feel along the muddy mortar crevices of the stone wall, coming away with foul sludge.",
+        "You check beneath the sagging lower stair tread, grasping only rusted iron nails."
+      ],
+      "scare_edit": "A gray, eyeless human silhouette rises directly out of the darkness behind the furnace, head cocked unnaturally close to the camera.",
+      "scare_lingbot_prompt": "A towering gray silhouette steps forward from behind the furnace as the solitary swinging bulb flickers and flares before dimming to an ember glow.",
+      "exits": [
+        "kitchen"
+      ],
+      "keyCandidate": true
+    }
+  ],
+  "key_found_line": "Your fingers close around cold, notched metal; the tarnished brass key is in your hand.",
+  "locked_door_line": "The heavy deadbolt stays frozen in its strike plate; you cannot force this door without the brass key.",
+  "win_line": "The brass key turns with a sharp metallic clunk, the storm rushes over you, and the porch steps give way to cold freedom behind you.",
+  "lose_line": "Cold, damp fingers press against the nape of your neck from behind, and the storm outside goes completely quiet.",
+  "whispers": [
+    "It remembers when you were small.",
+    "The key is cold enough to burn.",
+    "Don't turn your back on the open doorways.",
+    "You brought the storm inside with you.",
+    "Listen to the floorboards breathe.",
+    "It is already waiting in the next room."
+  ]
+}

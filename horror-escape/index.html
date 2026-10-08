@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Brass Key</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <video id="world" autoplay playsinline muted></video>
+      <img id="still" alt="" />
+      <div id="flashlight"></div>
+      <div id="grain"></div>
+      <div id="fade"></div>
+
+      <div id="hud" hidden>
+        <div id="room-name"></div>
+        <div id="objective"></div>
+        <div id="timer"></div>
+        <div id="inventory"></div>
+        <div id="narration"></div>
+        <div id="exits" hidden></div>
+        <div id="controls">
+          <b>WASD</b> move · <b>←→↑↓</b> look · <b>E</b> search · <b>F</b> use door · <b>Space</b> hint · <b>?</b> help
+        </div>
+        <div id="help" hidden>
+          <h3>How to play</h3>
+          <ol>
+            <li>The <span class="brass">brass key</span> is hidden in one room of the house. It changes every game.</li>
+            <li>Walk with <b>WASD</b> and look around with the <b>arrow keys</b>.</li>
+            <li>When you can see the key on screen, face it and press <b>E</b> to grab it.</li>
+            <li>To change rooms, face a doorway and press <b>F</b>, then pick a room (<b>1–4</b>).</li>
+            <li>Lost? Press <b>Space</b>. Something in the house will whisper which way to go.</li>
+            <li>With the key, return to the foyer, press <b>F</b> and choose <b>The front door</b>.</li>
+          </ol>
+          <p>You have <b>2 minutes</b>. The clock stops while a room loads. Expect company.</p>
+          <p class="small">Press <b>?</b> or <b>Tab</b> to close</p>
+        </div>
+      </div>
+
+      <!-- Above the HUD so the face covers everything. -->
+      <div id="scare-wrap"><img id="scare" alt="" /></div>
+      <div id="redflash"></div>
+
+      <div id="title" class="screen">
+        <h1 id="title-text">The Brass Key</h1>
+        <p id="intro">Loading…</p>
+        <div class="howto">
+          <h3>How to play</h3>
+          <p><b>Goal:</b> find the <span class="brass">brass key</span> hidden in one of the rooms, then escape through the front door. You have <b>2 minutes</b>.</p>
+          <div class="keys">
+            <span><b>W A S D</b> walk</span>
+            <span><b>← → ↑ ↓</b> look around</span>
+            <span><b>E</b> search / grab the key</span>
+            <span><b>F</b> go through a door</span>
+            <span><b>Space</b> ask which way to go</span>
+            <span><b>?</b> show these controls</span>
+          </div>
+        </div>
+        <button id="begin" disabled>Enter the house</button>
+        <p class="small">Headphones recommended. Contains flashing images and loud jump scares.</p>
+      </div>
+
+      <div id="end" class="screen" hidden>
+        <h1 id="end-title"></h1>
+        <p id="end-text"></p>
+        <button id="again">Play again</button>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
