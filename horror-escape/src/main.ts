@@ -65,6 +65,7 @@ const flashlight = $("flashlight");
 const hud = $("hud");
 const roomName = $("room-name");
 const timerEl = $("timer");
+const timerValue = $("timer-value");
 const inventory = $("inventory");
 const narrationEl = $("narration");
 const exitsEl = $("exits");
@@ -91,6 +92,7 @@ let lastBeat = 0;
 let generationStarted: (() => void) | null = null;
 let loopTimer = 0;
 let roomReady = false;
+let pausedLeft = 0;
 let introPlaying = false;
 
 const roomById = (id: string) => script.rooms.find((r) => r.id === id)!;
@@ -138,10 +140,10 @@ async function fetchJwt() {
   return body.jwt as string;
 }
 
-async function connectWorld() {
-  // One token per connection: a session-scoped JWT may only manage the
-  // session it created, so a resolver that mints per request gets 403s.
-  model = new LingbotWorld2Model({ jwt: await fetchJwt() });
+async function connectWorld(jwt: string) {
+  // A fixed token, not a resolver: a session-scoped JWT may only manage the
+  // session it created, so minting per request gets 403s.
+  model = new LingbotWorld2Model({ jwt });
   model.onMainVideo((_track, stream) => {
     video.srcObject = stream;
     video.play().catch(() => {});
@@ -160,6 +162,7 @@ async function enterRoom(id: string) {
   busy = true;
   const loadStart = Date.now();
   roomReady = false;
+  pausedLeft = deadline - loadStart;
   hideExits();
   stopMoving();
   fade.classList.remove("clear");
@@ -172,21 +175,24 @@ async function enterRoom(id: string) {
   still.classList.add("show");
   fade.classList.add("clear");
 
-  const m = model!;
-  const started = new Promise<void>((resolve) => {
-    generationStarted = resolve;
-    setTimeout(resolve, 20_000);
-  });
-  await m.reset();
-  const blob = await (await fetch(roomImage(room))).blob();
-  const ref = await m.uploadFile(blob);
-  await m.setImage({ image: ref });
-  await m.setPrompt({ prompt: roomPrompt(room) });
-  await m.start();
-  await started;
-  generationStarted = null;
-
-  still.classList.remove("show");
+  if (offline) {
+    resetView();
+  } else {
+    const m = model!;
+    const started = new Promise<void>((resolve) => {
+      generationStarted = resolve;
+      setTimeout(resolve, 20_000);
+    });
+    await m.reset();
+    const blob = await (await fetch(roomImage(room))).blob();
+    const ref = await m.uploadFile(blob);
+    await m.setImage({ image: ref });
+    await m.setPrompt({ prompt: roomPrompt(room) });
+    await m.start();
+    await started;
+    generationStarted = null;
+    still.classList.remove("show");
+  }
   narrate(room.entry_line);
   // The intro narration covers the first foyer entry.
   if (!introPlaying) speak(`room_${room.id}`);
@@ -239,9 +245,56 @@ function stopMoving() {
   Object.assign(sent, { long: "idle", lat: "idle", h: "idle", v: "idle" });
 }
 
+// ---------- Offline camera (no LingBot): pan and zoom over the room image
+
+const view = { yaw: 0, pitch: 0, zoom: 1.35 };
+let lastPan = 0;
+
+function resetView() {
+  Object.assign(view, { yaw: 0, pitch: 0, zoom: 1.35 });
+  applyView();
+}
+
+function applyView() {
+  // Keep the image edges off-screen: |offset| <= (zoom - 1) / (2 * zoom).
+  const lim = (view.zoom - 1) / (2 * view.zoom);
+  view.yaw = Math.max(-lim, Math.min(lim, view.yaw));
+  view.pitch = Math.max(-lim, Math.min(lim, view.pitch));
+  still.style.transform = `scale(${view.zoom}) translate(${-view.yaw * 100}%, ${view.pitch * 100}%)`;
+}
+
+function panLoop(t: number) {
+  if (!offline) return;
+  const dt = lastPan ? Math.min(0.1, (t - lastPan) / 1000) : 0;
+  lastPan = t;
+  if (!busy && !over) {
+    const h = (held.has("arrowright") || held.has("d") ? 1 : 0) - (held.has("arrowleft") || held.has("a") ? 1 : 0);
+    const v = (held.has("arrowup") ? 1 : 0) - (held.has("arrowdown") ? 1 : 0);
+    const z = (held.has("w") ? 1 : 0) - (held.has("s") ? 1 : 0);
+    if (h || v || z) {
+      view.yaw += h * dt * 0.12;
+      view.pitch += v * dt * 0.1;
+      view.zoom = Math.max(1.15, Math.min(2.2, view.zoom + z * dt * 0.35));
+      applyView();
+    }
+  }
+  requestAnimationFrame(panLoop);
+}
+
 // ---------- Gemini game master (judges the live frame)
 
 function captureFrame(): string {
+  if (offline && still.naturalWidth) {
+    const nw = still.naturalWidth;
+    const nh = still.naturalHeight;
+    const cw = nw / view.zoom;
+    const ch = nh / view.zoom;
+    const c = document.createElement("canvas");
+    c.width = 640;
+    c.height = Math.round((640 * ch) / cw);
+    c.getContext("2d")!.drawImage(still, nw * (0.5 + view.yaw) - cw / 2, nh * (0.5 - view.pitch) - ch / 2, cw, ch, 0, 0, c.width, c.height);
+    return c.toDataURL("image/jpeg", 0.75).split(",")[1];
+  }
   const src: CanvasImageSource = video.videoWidth ? video : still;
   const w = 640;
   const h = video.videoWidth ? Math.round((w * video.videoHeight) / video.videoWidth) : 358;
@@ -355,7 +408,7 @@ const SCARE_FACES = ["/generated/scare_face_0.png", "/generated/scare_face_2.png
 const SCARE_HIT_MS = 2100;
 
 async function jumpScare() {
-  if (over || ending || !model) return;
+  if (over || ending || (!model && !offline)) return;
   const r = room;
   stopMoving();
 
@@ -399,13 +452,20 @@ function warn() {
 
 // ---------- Main loop & lifecycle
 
+function renderTimer(left: number, paused: boolean) {
+  const s = Math.max(0, Math.ceil(left / 1000));
+  timerValue.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  timerEl.classList.toggle("paused", paused);
+  timerEl.classList.toggle("urgent", !paused && left < 30_000);
+}
+
 function tick() {
   if (over || ending) return;
-  if (busy && !roomReady) return;
+  // While a room loads the clock is frozen (the deadline is pushed back after).
+  if (busy && !roomReady) return renderTimer(pausedLeft, true);
   const left = deadline - Date.now();
   if (left <= 0) return void finish(false);
-  const s = Math.ceil(left / 1000);
-  timerEl.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  renderTimer(left, false);
 
   const beatEvery = left < 30_000 ? 600 : left < 60_000 ? 1000 : Infinity;
   if (Date.now() - lastBeat > beatEvery) {
@@ -442,39 +502,65 @@ async function finish(won: boolean) {
   model = null;
 }
 
-const MAX_CONNECT_ATTEMPTS = 8;
-
-// Reactor answers 429 when every LingBot GPU is busy; that clears on its own.
+// Reactor answers 429 when every LingBot GPU is busy; retry quickly so a
+// freed server is grabbed before someone else's request.
 const isCapacityError = (e: any) => e?.status === 429 || /429|capacity/i.test(`${e?.message} ${e?.cause?.message}`);
+const TOKEN_REFRESH_MS = 50 * 60_000;
 
-async function begin() {
+let offline = false;
+const offlineBtn = $<HTMLButtonElement>("offline");
+offlineBtn.onclick = () => {
+  initAudioOnce();
+  offline = true;
+  offlineBtn.hidden = true;
+  // If begin() isn't mid-wait (it gave up on an error), start an offline run.
+  if (!beginBtn.disabled) begin(true);
+};
+
+async function begin(playOffline = false) {
   endScreen.hidden = true;
   titleScreen.hidden = false;
   beginBtn.disabled = true;
   beginBtn.textContent = "Opening the door…";
-  for (let attempt = 1; !model; attempt++) {
+  offline = playOffline;
+  const waitStart = Date.now();
+  let jwt = "";
+  let mintedAt = 0;
+  while (!model && !offline) {
     try {
-      await connectWorld();
+      if (!jwt || Date.now() - mintedAt > TOKEN_REFRESH_MS) {
+        jwt = await fetchJwt();
+        mintedAt = Date.now();
+      }
+      await connectWorld(jwt);
     } catch (e: any) {
       console.error(e);
       // connectWorld() may have assigned model before throwing.
       await (model as LingbotWorld2Model | null)?.disconnect().catch(() => {});
       model = null;
-      if (isCapacityError(e) && attempt < MAX_CONNECT_ATTEMPTS) {
-        const wait = Math.min(5 * 2 ** (attempt - 1), 30);
-        for (let s = wait; s > 0; s--) {
-          beginBtn.textContent = `The house is full. Knocking again in ${s}s… (try ${attempt + 1}/${MAX_CONNECT_ATTEMPTS})`;
-          await sleep(1000);
-        }
-        continue;
+      if (!isCapacityError(e)) {
+        beginBtn.textContent = "Could not reach the house. Retry";
+        beginBtn.disabled = false;
+        offlineBtn.hidden = false;
+        $("intro").textContent = `${e?.message ?? e}${e?.cause ? ` (${e.cause.message ?? e.cause})` : ""}`;
+        return;
       }
-      beginBtn.textContent = "Could not reach the house. Retry";
-      beginBtn.disabled = false;
-      $("intro").textContent = isCapacityError(e)
-        ? "Reactor has no free LingBot servers right now. Wait a minute and try again."
-        : `${e?.message ?? e}${e?.cause ? ` (${e.cause.message ?? e.cause})` : ""}`;
-      return;
+      offlineBtn.hidden = false;
+      const until = Date.now() + rand(4000, 6000);
+      while (Date.now() < until && !offline) {
+        const waited = Math.round((Date.now() - waitStart) / 1000);
+        beginBtn.textContent = `The house is full. Waiting for a free server… ${Math.floor(waited / 60)}:${String(waited % 60).padStart(2, "0")}`;
+        await sleep(250);
+      }
     }
+  }
+  offlineBtn.hidden = true;
+  if (offline) {
+    still.classList.add("show");
+    lastPan = 0;
+    requestAnimationFrame(panLoop);
+  } else {
+    still.style.transform = "";
   }
   titleScreen.hidden = true;
   endScreen.hidden = true;
@@ -490,6 +576,7 @@ async function begin() {
   helpEl.hidden = true;
   keyRoom = pick(script.rooms.filter((r) => r.keyCandidate)).id;
   deadline = Date.now() + TIME_LIMIT_MS;
+  renderTimer(TIME_LIMIT_MS, true);
   loopTimer = window.setInterval(tick, 250);
   setObjective();
   await enterRoom("foyer");

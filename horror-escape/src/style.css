@@ -32,7 +32,7 @@ html, body {
   object-fit: cover;
 }
 
-#still { opacity: 0; transition: opacity 0.6s; }
+#still { opacity: 0; transition: opacity 0.6s; transform-origin: 50% 50%; }
 #still.show { opacity: 1; }
 
 /* Flashlight vignette that follows the mouse and flickers. */
@@ -135,7 +135,31 @@ html, body {
 
 #hud { position: absolute; inset: 0; pointer-events: none; }
 #room-name { position: absolute; top: 20px; left: 24px; font-size: 22px; letter-spacing: 0.08em; color: var(--dim); }
-#timer { position: absolute; top: 20px; right: 24px; font-size: 22px; color: var(--blood); font-variant-numeric: tabular-nums; }
+#timer {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 22px 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 60, 60, 0.35);
+  color: #ff3b30;
+  text-shadow: 0 0 12px rgba(255, 30, 30, 0.8), 0 0 2px #000;
+  font-variant-numeric: tabular-nums;
+}
+#timer .label { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #c9a6a0; text-shadow: none; }
+#timer-value { font-size: 40px; line-height: 1.05; }
+#timer.paused #timer-value { opacity: 0.55; }
+#timer.paused .label::after { content: " · paused"; }
+#timer.urgent { animation: urgent 0.6s ease-in-out infinite alternate; }
+@keyframes urgent {
+  from { transform: translateX(-50%) scale(1); }
+  to { transform: translateX(-50%) scale(1.12); border-color: #ff3b30; }
+}
 #inventory { position: absolute; top: 54px; right: 24px; color: var(--brass); }
 #narration {
   position: absolute;
@@ -193,7 +217,7 @@ button:disabled { opacity: 0.4; cursor: wait; }
   background: radial-gradient(ellipse at center, rgba(20, 8, 6, 0.75), rgba(0, 0, 0, 0.97));
   overflow-y: auto;
 }
-.screen[hidden], #hud[hidden], #exits[hidden], #help[hidden] { display: none; }
+.screen[hidden], button[hidden], #hud[hidden], #exits[hidden], #help[hidden] { display: none; }
 .screen h1 { font-size: clamp(36px, 7vw, 72px); font-weight: normal; margin: 0; color: var(--blood); text-shadow: 0 0 24px rgba(138, 15, 15, 0.6); }
 .screen p { max-width: 620px; font-size: 18px; line-height: 1.5; margin: 0; }
 .screen .small { font-size: 13px; color: var(--dim); }
